@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://dv7f6dbvkub6o"]
+
+[ext_resource type="Script" path="res://abilities/grabs/grab_ability.gd" id="1_4nitb"]
+[ext_resource type="Script" path="res://triggers/hitbox.gd" id="2_3r44i"]
+[ext_resource type="Script" path="res://state_machines/player_states/player_grab.gd" id="3_o2eim"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8gesb"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="GrabAbility" type="Node" node_paths=PackedStringArray("ability_state")]
+script = ExtResource("1_4nitb")
+hitbox_offset = Vector3(0.5, 0, 0)
+ability_state = NodePath("PlayerGrab")
+knockback = 5.0
+stun_time = 2.0
+
+[node name="HitBox" type="Area3D" parent="."]
+script = ExtResource("2_3r44i")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("BoxShape3D_8gesb")
+disabled = true
+
+[node name="PlayerGrab" type="Node" parent="."]
+script = ExtResource("3_o2eim")
+move_speed = null
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

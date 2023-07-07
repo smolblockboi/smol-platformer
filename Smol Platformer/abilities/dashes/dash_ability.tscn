@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://ybu7gnpy4xb2"]
+
+[ext_resource type="Script" path="res://abilities/dashes/dash_ability.gd" id="1_5nuo2"]
+[ext_resource type="Script" path="res://triggers/hitbox.gd" id="2_sp74v"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ijo5m"]
+radius = 0.35
+
+[node name="DashAbility" type="Node"]
+script = ExtResource("1_5nuo2")
+type = 1
+knockback = 10.0
+
+[node name="HitBox" type="Area3D" parent="."]
+script = ExtResource("2_sp74v")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_ijo5m")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

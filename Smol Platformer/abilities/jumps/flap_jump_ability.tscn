@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://de7wq1oc4ujwl"]
+
+[ext_resource type="Script" path="res://abilities/jumps/flap_jump.gd" id="1_mnk7c"]
+[ext_resource type="AudioStream" uid="uid://dnu0heqxoawj2" path="res://audio/jump.wav" id="2_mf7xe"]
+[ext_resource type="Texture2D" uid="uid://dlevayufjquvo" path="res://player/costumes/player_chicken.png" id="2_nhoq4"]
+[ext_resource type="Script" path="res://triggers/hitbox.gd" id="3_4k51g"]
+[ext_resource type="Texture2D" uid="uid://dd1c1inwn2hxn" path="res://enemies/baddie_chicken.png" id="3_almyd"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_13w8a"]
+radius = 0.25
+
+[node name="FlapJumpAbility" type="Node"]
+script = ExtResource("1_mnk7c")
+max_jumps = 5
+allow_air_jump = true
+level = 1
+player_texture = ExtResource("2_nhoq4")
+enemy_texture = ExtResource("3_almyd")
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_mf7xe")
+
+[node name="HitBox" type="Area3D" parent="."]
+script = ExtResource("3_4k51g")
+hit_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_13w8a")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

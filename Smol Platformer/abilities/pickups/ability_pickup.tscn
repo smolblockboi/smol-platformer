@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://kqaccsuimj3b"]
+
+[ext_resource type="Script" path="res://abilities/pickups/ability_item.gd" id="1_roxy8"]
+[ext_resource type="Texture2D" uid="uid://bwk4cacognkc7" path="res://abilities/pickups/redeem_icons.png" id="3_vj8lg"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_avf6y"]
+radius = 0.35
+
+[node name="AbilityPickup" type="Area3D"]
+script = ExtResource("1_roxy8")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.05
+billboard = 1
+shaded = true
+texture_filter = 4
+texture = ExtResource("3_vj8lg")
+hframes = 6
+vframes = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_avf6y")
+disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

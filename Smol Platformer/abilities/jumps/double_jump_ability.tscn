@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://d0ipwt7wshaj0"]
+
+[ext_resource type="PackedScene" uid="uid://u3aqy56v3lct" path="res://abilities/jumps/jump_ability.tscn" id="1_8yko7"]
+[ext_resource type="Texture2D" uid="uid://t7c0l1hyredl" path="res://player/costumes/player_hardhat.png" id="2_04udc"]
+[ext_resource type="Texture2D" uid="uid://cb575jcafxu6i" path="res://enemies/baddie_hardhat.png" id="3_8il4n"]
+
+[node name="DoubleJumpAbility" instance=ExtResource("1_8yko7")]
+allow_air_jump = true
+level = 1
+player_texture = ExtResource("2_04udc")
+enemy_texture = ExtResource("3_8il4n")

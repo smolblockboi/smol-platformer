@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://u3aqy56v3lct"]
+
+[ext_resource type="Script" path="res://abilities/jumps/jump_ability.gd" id="1_2n8cm"]
+[ext_resource type="AudioStream" uid="uid://dnu0heqxoawj2" path="res://audio/jump.wav" id="2_kq5mi"]
+[ext_resource type="Script" path="res://triggers/hitbox.gd" id="3_mj8om"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_13w8a"]
+radius = 0.25
+
+[node name="JumpAbility" type="Node"]
+script = ExtResource("1_2n8cm")
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_kq5mi")
+
+[node name="HitBox" type="Area3D" parent="."]
+script = ExtResource("3_mj8om")
+hit_type = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_13w8a")
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_hit_box_body_entered"]

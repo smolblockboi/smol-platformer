@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwj3rwwxgri3c"]
+
+[ext_resource type="Script" path="res://environments/portals/layer_door.gd" id="1_1gjwf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_051w2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lto30"]
+size = Vector3(1, 0.1, 1)
+
+[node name="LayerDoor" type="Area3D"]
+script = ExtResource("1_1gjwf")
+target_cell_distance = Vector3(0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_051w2")
+
+[node name="FrontRayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+target_position = Vector3(0, 0, 1)
+
+[node name="BackRayCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+target_position = Vector3(0, 0, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("BoxMesh_lto30")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

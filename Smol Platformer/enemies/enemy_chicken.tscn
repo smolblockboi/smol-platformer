@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://boo5ylj0v12qo"]
+
+[ext_resource type="PackedScene" uid="uid://b6fte4p7e3reo" path="res://enemies/enemy_character.tscn" id="1_4he83"]
+[ext_resource type="Texture2D" uid="uid://dd1c1inwn2hxn" path="res://enemies/baddie_chicken.png" id="2_3dvv1"]
+[ext_resource type="PackedScene" uid="uid://de7wq1oc4ujwl" path="res://abilities/jumps/flap_jump_ability.tscn" id="2_prnd7"]
+[ext_resource type="PackedScene" uid="uid://dj5yp6pdrtcof" path="res://abilities/dashes/air_dash_ability.tscn" id="3_a6gqx"]
+
+[node name="EnemyChicken" instance=ExtResource("1_4he83")]
+dropped_ability = ExtResource("2_prnd7")
+
+[node name="Sprite3D" parent="." index="1"]
+texture = ExtResource("2_3dvv1")
+
+[node name="AirDashAbility" parent="CurrentMobilityAbility" index="0" instance=ExtResource("3_a6gqx")]
+type = 0

@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf0t7p504n8ha"]
+
+[ext_resource type="Script" path="res://abilities/dashes/slime_ability.gd" id="1_na30s"]
+
+[node name="SlimeAbility" type="Node"]
+script = ExtResource("1_na30s")
+
+[node name="CastGroup" type="Node3D" parent="."]
+
+[node name="DownCast" type="RayCast3D" parent="CastGroup"]
+enabled = false
+
+[node name="RightCast" type="RayCast3D" parent="CastGroup"]
+enabled = false
+target_position = Vector3(1, 0, 0)
+
+[node name="UpCast" type="RayCast3D" parent="CastGroup"]
+enabled = false
+target_position = Vector3(0, 1, 0)
+
+[node name="LeftCast" type="RayCast3D" parent="CastGroup"]
+enabled = false
+target_position = Vector3(-1, 0, 0)

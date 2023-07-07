@@ -1,0 +1,77 @@
+[gd_scene load_steps=10 format=3 uid="uid://bftnte8oa3jen"]
+
+[ext_resource type="Script" path="res://levels/level_scene.gd" id="1_mwqfo"]
+[ext_resource type="MeshLibrary" uid="uid://mr7lnlon4a4m" path="res://mesh_libraries/base_mesh_library.tres" id="1_uu74p"]
+[ext_resource type="PackedScene" uid="uid://cjh63qsfppfuj" path="res://player/player_character.tscn" id="2_f5xcm"]
+[ext_resource type="PackedScene" uid="uid://qe4f2yyc3nhn" path="res://levels/kill_zone.tscn" id="4_wf7xo"]
+[ext_resource type="PackedScene" uid="uid://boo5ylj0v12qo" path="res://enemies/enemy_chicken.tscn" id="7_hmlqj"]
+[ext_resource type="PackedScene" uid="uid://b6fte4p7e3reo" path="res://enemies/enemy_character.tscn" id="7_lxm5f"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hykx1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_k8dli"]
+sky_material = SubResource("ProceduralSkyMaterial_hykx1")
+
+[sub_resource type="Environment" id="Environment_508rw"]
+background_color = Color(1, 0.670588, 0.568627, 1)
+sky = SubResource("Sky_k8dli")
+tonemap_mode = 2
+
+[node name="LevelScene" type="Node3D"]
+script = ExtResource("1_mwqfo")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_508rw")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0.499999, -0.748907, 0.434901, -0.00109081, 0.501635, 0.865079, 0, 0, 0)
+shadow_enabled = true
+
+[node name="FrontLayer" type="Node3D" parent="."]
+
+[node name="GridMap" type="GridMap" parent="FrontLayer" groups=["environment"]]
+mesh_library = ExtResource("1_uu74p")
+cell_size = Vector3(1, 1, 1)
+collision_mask = 7
+data = {
+"cells": PackedInt32Array(0, 0, 1, 1, 0, 1, 2, 0, 1, 3, 0, 1, 4, 0, 1, 5, 0, 1, 6, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 131078, 0, 1, 131079, 0, 1, 131080, 0, 1, 65547, 0, 3, 65545, 0, 3, 12, 0, 1, 65548, 0, 1, 131084, 0, 1, 196620, 0, 1, 65535, 0, 1, 65531, 0, 1, 65532, 0, 1, 65533, 0, 1, 65534, 0, 1, 13, 0, 1, 14, 0, 1, 15, 0, 1, 16, 0, 1, 131068, 0, 3, 65551, 0, 3, 17, 0, 1, 18, 0, 1, 19, 0, 1, 65555, 0, 1, 131091, 0, 1, 196627, 0, 1, 262163, 0, 1, 262164, 0, 1, 262165, 0, 1, 262166, 0, 1, 262167, 0, 1, 262168, 0, 1, 262169, 0, 1, 262170, 0, 1, 262171, 0, 1, 262172, 0, 1, 327705, 0, 3, 327704, 0, 1, 327703, 0, 1, 393239, 0, 1, 393240, 0, 1, 393238, 0, 1, 393237, 0, 1, 393236, 0, 1, 393235, 0, 1, 393234, 0, 1, 65536, 0, 1, 131072, 0, 1, 196608, 0, 1, 458770, 0, 3, 327700, 0, 3, 196616, 0, 3, 393233, 0, 1, 393232, 0, 1, 393231, 0, 1, 393230, 0, 1, 393229, 0, 1, 393228, 0, 1, 393227, 0, 1, 393226, 0, 1, 393225, 0, 1, 393224, 0, 1, 393223, 0, 1, 393222, 0, 1, 393221, 0, 1)
+}
+metadata/_editor_floor_ = Vector3(0, 6, 0)
+
+[node name="PlayerCharacter" parent="FrontLayer/GridMap" node_paths=PackedStringArray("level_ref") instance=ExtResource("2_f5xcm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.594, 4.52167, 0.5)
+level_ref = NodePath("../../..")
+
+[node name="EnemyCharacter" parent="FrontLayer/GridMap" instance=ExtResource("7_lxm5f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7309, 1.59524, 0.5)
+
+[node name="EnemyChicken" parent="FrontLayer/GridMap" instance=ExtResource("7_hmlqj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5532, 2, 0.555493)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="FrontLayer"]
+transform = Transform3D(1, 0, 0, 0, 0.996195, 0.0871558, 0, -0.0871558, 0.996195, 6.594, 4.52167, 0.5)
+collision_mask = 0
+spring_length = 7.5
+
+[node name="Camera3D" type="Camera3D" parent="FrontLayer/SpringArm3D"]
+v_offset = 1.0
+current = true
+size = 10.0
+
+[node name="BackLayer" type="Node3D" parent="."]
+
+[node name="GridMap" type="GridMap" parent="BackLayer" groups=["environment"]]
+mesh_library = ExtResource("1_uu74p")
+cell_size = Vector3(1, 1, 1)
+collision_mask = 7
+data = {
+"cells": PackedInt32Array(0, 65535, 2, 1, 65535, 2, 2, 65535, 2, 3, 65535, 2, 4, 65535, 2, 5, 65535, 2, 6, 65535, 2, 7, 65535, 2, 8, 65535, 2, 9, 65535, 2, 10, 65535, 2, 11, 65535, 2, 65546, 65535, 2, 65545, 65535, 2, 65544, 65535, 2, 65543, 65535, 2, 65542, 65535, 2, 65541, 65535, 2, 65540, 65535, 2, 65539, 65535, 2, 131078, 65535, 2, 131079, 65535, 2, 131080, 65535, 2, 65537, 65535, 3, 196615, 65535, 3, 12, 65535, 2, 13, 65535, 2, 14, 65535, 2, 15, 65535, 2, 16, 65535, 2, 65533, 65535, 2, 65534, 65535, 2, 65535, 65535, 2, 65532, 65535, 2, 65531, 65535, 2, 65550, 65535, 3, 131069, 65535, 3, 17, 65535, 2, 18, 65535, 2, 19, 65535, 2, 65555, 65535, 2, 131091, 65535, 2, 196627, 65535, 2, 262163, 65535, 2, 262164, 65535, 2, 262165, 65535, 2, 262166, 65535, 2, 262167, 65535, 2, 262168, 65535, 2, 262169, 65535, 2, 262170, 65535, 2, 262171, 65535, 2, 262172, 65535, 2, 327702, 65535, 3, 327707, 65535, 3, 131076, 65535, 3, 65553, 65535, 2, 131089, 65535, 2, 196625, 65535, 3, 65554, 65535, 3)
+}
+metadata/_editor_floor_ = Vector3(0, 1, 0)
+
+[node name="EnemyChicken" parent="BackLayer/GridMap" instance=ExtResource("7_hmlqj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.464, 3, -0.5)
+
+[node name="KillZone" parent="." instance=ExtResource("4_wf7xo")]
